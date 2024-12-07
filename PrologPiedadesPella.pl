@@ -40,7 +40,7 @@ viveEnPropiedadCopada(Persona):-
     esPropiedadCopada(Propiedad).
 
 esPropiedadCopada(casa(MetrosCuadrados)):-
-    metrosCuadrados > 100.
+    MetrosCuadrados > 100.
 
 esPropiedadCopada(depto(CantAmbientes, _)):-
     CantAmbientes > 3.
@@ -49,7 +49,7 @@ esPropiedadCopada(depto(_, CantBanios)):-
     CantBanios > 1.
 
 esPropiedadCopada(loft(AnioDeConstruccion)):-
-    añoDeConstruccion > 2015.
+    AnioDeConstruccion > 2015.
 
 %--------------------------------------------------------------
 % Punto 3
@@ -92,12 +92,29 @@ puedoComprarLaCasaDe(Persona, DineroDisponible):-
 
 
 /*
-quePuedoComprarCon(Dinero) asume que Dinero es un entero y PropiedadesQuePuedoComprar es una lista
 debe ser recursivo usando el predicado sublista([], [])
 sublista([_|cola], Sublista):-
     sublista(cola, Sublista).
 */
-% quePuedoComprarCon(Dinero, PropiedadesQuePuedoComprar):-
+% quePuedoComprarCon(Dinero, PropiedadesQuePuedoComprar).
+/*
+sublista([], []).
+sublista([_|cola], Sublista):-
+    sublista(cola, Sublista).
+sublista([Cabeza|cola], [Cabeza|Sublista]):-
+    sublista(cola, Sublista).
+
+
+quePuedoComprarCon(Dinero, PropiedadesQuePuedoComprar):-
+    listaDeValroesDeInmuebles([Cabeza|Cola]),
+
+    Dinero is Dinero - Cabeza,
+    valorDeInmuebleDe(Persona, Cabeza),
+    append(PropiedadesQuePuedoComprar, [Persona], PropiedadesQuePuedoComprar).
+
+listaDeValroesDeInmuebles(ListaDeValores):-
+    findall(Valor, valorDeInmuebleDe(_, Valor), ListaDeValores).
+*/
 
 
     
